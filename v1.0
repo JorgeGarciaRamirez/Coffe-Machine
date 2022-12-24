@@ -1,0 +1,85 @@
+fun buy() {
+    println("")
+    println("What do you want to buy? 1 - espresso, 2 - latte, 3 - cappuccino, back - to main menu:")
+    when (readln()) {
+        "1" -> coffe(250, 0, 16, 1,4)
+        "2" -> coffe(350, 75, 20, 1, 7)
+        "3" -> coffe(200, 100, 12, 1, 6)
+        "back" -> println()
+    }
+}
+
+fun coffe(neededWater: Int, neededMilk: Int, neededCoffeBeans: Int, neededDispCups: Int, cost: Int) =
+    if (hasWater >= neededWater && hasMilk >= neededMilk && hasCoffeeBeans >= neededCoffeBeans && dispCups >= neededDispCups) {
+        hasWater -= neededWater
+        hasMilk -= neededMilk
+        hasCoffeeBeans -= neededCoffeBeans
+        dispCups -= neededDispCups
+        money += cost
+        println("I have enough resources, making you a coffee!")
+        println("")
+    } else {
+        if (hasWater < neededWater) {
+            println("Sorry, not enough water!")
+            println("")
+        } else if (hasMilk < neededMilk) {
+            println("Sorry, not enough milk!")
+            println("")
+        } else if (hasCoffeeBeans < neededCoffeBeans) {
+            println("Sorry, not enough coffee beans!")
+            println("")
+        } else {
+            println("Sorry, not enough disposable cups!")
+            println("")
+        }
+    }
+
+fun fill() {
+    println("")
+    println("Write how many ml of water you want to add:")
+    hasWater += readln().toInt()
+    println("Write how many ml of milk you want to add:")
+    hasMilk += readln().toInt()
+    println("Write how many grams of coffee beans you want to add:")
+    hasCoffeeBeans += readln().toInt()
+    println("Write how many disposable cups you want to add:")
+    dispCups += readln().toInt()
+    println("")
+}
+
+fun take() {
+    println("")
+    println("I gave you $$money")
+    println("")
+    money -= money
+}
+
+fun remaining() {
+    println("")
+    println("The coffee machine has:")
+    println("$hasWater ml of water")
+    println("$hasMilk ml of milk")
+    println("$hasCoffeeBeans g of coffee beans")
+    println("$dispCups disposable cups")
+    println("$$money of money")
+    println("")
+}
+
+var hasWater = 400
+var hasMilk = 540
+var hasCoffeeBeans = 120
+var dispCups = 9
+var money = 550
+
+fun main() {
+    do {
+        println("Write actions (buy, fill, take, remaining, exit)")
+        val action = readln()
+        when (action) {
+            "buy" -> buy()
+            "fill" -> fill()
+            "take" -> take()
+            "remaining" -> remaining()
+        }
+    } while (action != "exit")
+}
